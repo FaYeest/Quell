@@ -251,7 +251,7 @@ func runScanCommand(args []string) {
 				}
 
 				if *writePatches {
-					targetFileAbs := filepath.Join(absTargetDir, filepath.Base(f.FilePath))
+					targetFileAbs, _ := filepath.Abs(f.FilePath)
 					if err := patcher.WritePatchToFile(targetFileAbs, patchOut.NewFileContent); err != nil {
 						fmt.Fprintf(os.Stderr, "❌ Failed to write patch to %s: %v\n", targetFileAbs, err)
 					} else {
