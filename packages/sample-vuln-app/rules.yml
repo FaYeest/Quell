@@ -1,0 +1,48 @@
+rules:
+  - id: quell.node.sqli.raw-query-concatenation
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "Potential SQL Injection detected: raw query concatenation with user-controllable input."
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $Q = "..." + $INPUT + "...";
+              ...
+              $DB.query($Q, ...);
+          - pattern: |
+              $DB.query("..." + $INPUT + "...", ...);
+          - pattern: |
+              $Q = `...${$INPUT}...`;
+              ...
+              $DB.query($Q, ...);
+          - pattern: |
+              $DB.query(`...${$INPUT}...`, ...);
+    metadata:
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      owasp: "A03:2021 - Injection"
+      vulnerability_type: "SQL_INJECTION"
+
+  - id: quell.node.auth.missing-tenant-validation-idor
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: "Suspect Broken Object Level Authorization (IDOR): Object fetched directly by user parameter without organizational tenant scope."
+    patterns:
+      - pattern-either:
+          - pattern: |
+              async function $HANDLER(req, res, ...) {
+                ...
+                const $ID = req.params.$PARAM;
+                ...
+                $DB.query($QUERY, [$ID]);
+                ...
+              }
+          - pattern: |
+              async function $HANDLER(req, res, ...) {
+                ...
+                $DB.query($QUERY, [req.params.$PARAM]);
+                ...
+              }
+    metadata:
+      cwe: "CWE-639: Authorization Bypass Through User-Controlled Key"
+      owasp: "A01:2021 - Broken Access Control"
+      vulnerability_type: "IDOR"

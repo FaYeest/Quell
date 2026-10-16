@@ -1,0 +1,30 @@
+# Binaries & Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+dist/
+bin/
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Database / Storage
+postgres_data/
+redis_data/
+quell_db/

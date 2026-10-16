@@ -1,0 +1,13 @@
+{
+  "name": "sample-vuln-app",
+  "version": "1.0.0",
+  "description": "Sample vulnerable application for testing Quell AST and Semgrep scanner",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  }
+}
