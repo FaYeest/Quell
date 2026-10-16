@@ -23,6 +23,10 @@ func GenerateDiff(filePath, originalFileContent, originalBlock, patchedBlock str
 		return nil, fmt.Errorf("originalBlock and patchedBlock cannot be empty")
 	}
 
+	originalFileContent = strings.ReplaceAll(originalFileContent, "\r\n", "\n")
+	originalBlock = strings.ReplaceAll(originalBlock, "\r\n", "\n")
+	patchedBlock = strings.ReplaceAll(patchedBlock, "\r\n", "\n")
+
 	if originalBlock == patchedBlock {
 		return &PatchOutput{
 			FilePath:       filePath,

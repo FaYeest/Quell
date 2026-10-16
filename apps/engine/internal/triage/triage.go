@@ -202,7 +202,7 @@ You MUST respond ONLY with a valid JSON object matching this schema:
 // runDeterministicTriage provides deterministic triage logic when no LLM API key is configured.
 func (a *Agent) runDeterministicTriage(finding scanner.Finding, astCtx *ast.ASTContext) (*TriageResult, error) {
 	ruleID := strings.ToLower(finding.RuleID)
-	funcSource := astCtx.FunctionSource
+	funcSource := strings.ReplaceAll(astCtx.FunctionSource, "\r\n", "\n")
 
 	// 1. SQL Injection
 	if strings.Contains(ruleID, "sqli") || finding.VulnType == "SQL_INJECTION" || strings.Contains(funcSource, "SELECT * FROM users WHERE username = '\" + username") {

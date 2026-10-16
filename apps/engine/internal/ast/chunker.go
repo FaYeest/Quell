@@ -63,7 +63,8 @@ func (c *Chunker) ExtractContext(filePath string, startLine, endLine int, repoRo
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file %s: %w", absPath, err)
 	}
-	contentStr := string(contentBytes)
+	contentStr := strings.ReplaceAll(string(contentBytes), "\r\n", "\n")
+	contentBytes = []byte(contentStr)
 	lines := strings.Split(contentStr, "\n")
 
 	parser := sitter.NewParser()
