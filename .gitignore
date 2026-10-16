@@ -28,3 +28,6 @@ Thumbs.db
 postgres_data/
 redis_data/
 quell_db/
+
+# Private Key
+*.pem
